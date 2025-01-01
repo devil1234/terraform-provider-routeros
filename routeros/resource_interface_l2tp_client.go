@@ -111,7 +111,7 @@ func ResourceInterfaceL2TPClient() *schema.Resource {
 		KeyName: PropName("Name of the L2TP interface."),
 		"password": {
 			Type:        schema.TypeString,
-			Required:    true,
+			Optional:    true,
 			Default:     "",
 			Sensitive:   true,
 			Description: "Password used to authenticate.",
@@ -124,7 +124,7 @@ func ResourceInterfaceL2TPClient() *schema.Resource {
 		},
 		"user": {
 			Type:        schema.TypeString,
-			Required:    true,
+			Optional:    true,
 			Default:     "",
 			Description: "Username used for authentication.",
 		},
@@ -150,20 +150,15 @@ func ResourceInterfaceL2TPClient() *schema.Resource {
 			Description: "Allow to forward packets without additional processing in the Linux kernel.",
 		},
 		"l2tp_proto_version": {
-			Type:        schema.TypeSet,
-			Optional:    true,
-			Computed:    true,
-			Description: "Specify protocol version to use.",
-			Default:     "l2tpv2",
-			Elem: &schema.Schema{
-				Type:         schema.TypeString,
-				ValidateFunc: validation.StringInSlice([]string{"l2tpv2", "l2tpv3-ip", "l2tpv3-udp", "l2tpv"}, false),
-			},
+			Type:         schema.TypeString,
+			Optional:     true,
+			Default:      "l2tpv2",
+			Description:  "Specify protocol version to use.",
+			ValidateFunc: validation.StringInSlice([]string{"l2tpv2", "l2tpv3-ip", "l2tpv3-udp", "l2tpv3"}, false),
 		},
 		"l2tpv3_cookie_length": {
 			Type:        schema.TypeString,
 			Optional:    true,
-			Default:     "0",
 			Description: "Configures an L2TPv3 pseudowire static session cookie.",
 		},
 		"l2tpv3_digest_hash": {
@@ -173,7 +168,7 @@ func ResourceInterfaceL2TPClient() *schema.Resource {
 			Description:  "Specifies which hash function to be used.",
 			ValidateFunc: validation.StringInSlice([]string{"md5", "sha1", "none"}, false),
 		},
-		"user_peer_dns": {
+		"use_peer_dns": {
 			Type:        schema.TypeBool,
 			Optional:    true,
 			Default:     false,
